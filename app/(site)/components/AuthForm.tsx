@@ -41,8 +41,27 @@ const AuthForm = () => {
             name: "",
             email: "",
             password: "",
-        }
+        },
     });
+
+    useEffect(() => {
+        register('password', {
+            required: 'Je vyžadováno heslo',
+            minLength: {
+                value: 8,
+                message: 'Heslo musí mít alespoň 8 znaků',
+            },
+            validate: value => !value.includes(' ') || 'Mezery nejsou povoleny',
+        });
+
+        register('email', {
+            required: 'Je vyžadován E-mail',
+            pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Prosím zadejte platnou emailovou adresu',
+            },
+        });
+    }, [register]);
 
     const onSubmit: SubmitHandler<FieldValues> = ((data: any) => {
         setIsLoading(true);
@@ -120,22 +139,36 @@ const AuthForm = () => {
                             disabled={isLoading}
                         />
                     )}
-                    <Input 
-                        id="email" 
-                        label="Email"
-                        type="email" 
-                        register={register}
-                        errors={errors}
-                        disabled={isLoading}
-                    />
-                    <Input 
-                        id="password" 
-                        label="Heslo"
-                        type="password"
-                        register={register}
-                        errors={errors}
-                        disabled={isLoading}
-                    />
+                    <div>
+                        <Input 
+                            id="email" 
+                            label="Email"
+                            type="email" 
+                            register={register}
+                            errors={errors}
+                            disabled={isLoading}
+                        />
+                        {errors.email?.type === 'pattern' && (
+                            <p className="text-sm text-red-500">Prosím zadejte platnou emailovou adresu</p>
+                        )}
+                    </div>
+                    <div>
+                        <Input 
+                            id="password" 
+                            label="Heslo"
+                            type="password"
+                            register={register}
+                            errors={errors}
+                            disabled={isLoading}
+                        />
+                        {errors.password && (
+                            <p className="text-sm text-red-500">
+                                {errors.password.message && (
+                                    errors.password.type === 'minLength' ? 'Heslo musí mít alespoň 8 znaků' : 'Mezery nejsou povoleny'
+                                )}
+                            </p>
+                        )}
+                    </div>
                     <div>
                         <Button
                             disabled={isLoading}

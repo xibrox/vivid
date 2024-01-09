@@ -50,11 +50,11 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     }, [userEmail, lastMessage]);
 
     const lastMessageText = useMemo(() => {
-        if (lastMessage?.image) return "Sent an image";
+        if (lastMessage?.image) return "Obrázek";
 
         if (lastMessage?.body) return lastMessage.body;
 
-        return "Started a conversation";
+        return "Začátek konverzace";
     }, [lastMessage]);
 
     return (
