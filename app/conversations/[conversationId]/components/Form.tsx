@@ -68,7 +68,7 @@ const Form = () => {
                     register={register}
                     errors={errors}
                     required
-                    placeholder="Type a message"
+                    placeholder="Napsat zprávu"
                 />
                 <button
                     type="submit"

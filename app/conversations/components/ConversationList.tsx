@@ -9,6 +9,7 @@ import useConversation from "@/app/hooks/useConversation";
 import { FullConversationType } from "@/app/types";
 import ConversationBox from "./ConversationBox";
 import { User } from "@prisma/client";
+import GroupChatModal from "./GroupChatModal";
 
 interface ConversationListProps {
     initialItems: FullConversationType[];
@@ -20,6 +21,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
     users
 }) => {
     const [items, setItems] = useState(initialItems);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const router = useRouter();
 
@@ -27,6 +29,11 @@ const ConversationList: React.FC<ConversationListProps> = ({
 
     return (
         <>
+            <GroupChatModal
+                users={users}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
             <aside
                 className={clsx(`
                     fixed
@@ -55,6 +62,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
                             Zprávy
                         </div>
                         <div 
+                            onClick={() => setIsModalOpen(true)}
                             className="
                                 rounded-full
                                 p-2
