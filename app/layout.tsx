@@ -20,6 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
+
       <body className={inter.className} suppressHydrationWarning={true}>
         <AuthContext>
           <ToasterContext />
