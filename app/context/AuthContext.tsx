@@ -16,4 +16,4 @@ const AuthContext: React.FC<AuthContextProps> = ({
     )
 }
 
-export default AuthContext;
+export default AuthContext
